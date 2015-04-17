@@ -24,7 +24,7 @@ By default, this cookbook depends on the use of **encrypted data bags** to store
 }
 ```
 You may change the name of the data bag and item via the `node['loggly']['token']['databag']` and `node['loggly']['token']['databag_item']` attributes respectively.
-Also, if you do not want this cookbook to load the credentials for you, and instead want to set them yourself, set `node['loggly']['token']['from_databag']` to `false`, and then set the credentials via `node['loggly']['token']['value']`.
+Also, if you do not want this cookbook to load the credentials for you, and instead want to set them yourself, then set the credentials via `node['loggly']['token']['value']`.
 
 
 Attributes
@@ -57,10 +57,9 @@ of a hash used to describe a file to monitor.
 * `node['loggly']['tls']['intermediate_cert_url']` - Url to the intermediate certificate
 * `node['loggly']['tls']['intermediate_cert_checksum']` - Checksum of the intermediate certificate
 
-* `default['loggly']['token']['from_databag']` - Whether to load the Loggly token from a Data Bag (defaults to true)
 * `default['loggly']['token']['databag']` - The name of the Data Bag to load the credentials from (defaults to "loggly")
 * `default['loggly']['token']['databag_item']` - The name of the Data Bag Item to load the credentials from (defaults to "token")
-* `default['loggly']['token']['value']` - The Loggly token. Set from the Data Bag above by default.
+* `default['loggly']['token']['value']` - The Loggly token to use instead of searching the databag (defaults to nil)
 
 * `node['loggly']['rsyslog']['conf']` - Name of the loggly rsyslog confiugration file (defaults to /etc/rsyslog.d/22-loggly.conf)
 * `node['loggly']['rsyslog']['host']` - Name of the remote loggly syslog host (defaults to logs-01.loggly.com)

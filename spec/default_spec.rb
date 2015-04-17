@@ -44,13 +44,8 @@ describe 'loggly-rsyslog::default' do
   end
 
   context 'when the loggly token is set via an attribute' do
-    before do
-      Chef::EncryptedDataBagItem.stub(:load).with('loggly', 'token').and_return(nil)
-    end
-
     let(:chef_run) do
       ChefSpec::SoloRunner.new(CHEF_RUN_OPTIONS) do |node|
-        node.set['loggly']['token']['from_databag'] = false
         node.set['loggly']['token']['value'] = 'logglytoken1234'
       end.converge(described_recipe)
     end

@@ -7,15 +7,14 @@
 # All rights reserved - Do Not Redistribute
 #
 
-if node['loggly']['token']['from_databag']
+if node['loggly']['token']['value']
+  loggly_token = node['loggly']['token']['value']
+else
   databag = node['loggly']['token']['databag']
   databag_item = node['loggly']['token']['databag_item']
 
   loggly_token = Chef::EncryptedDataBagItem.load(databag, databag_item)['token']
   raise "No token was found in databag item: #{databag}/#{databag_item}" if loggly_token.nil?
-else
-  raise "When not using a Data Bag, you have to define the Loggly token manually" if node['loggly']['token']['value'].empty?
-  loggly_token = node['loggly']['token']['value']
 end
 
 include_recipe "rsyslog::default"
