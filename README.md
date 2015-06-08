@@ -34,16 +34,19 @@ Attributes
 * `node['loggly']['log_files']` - A list of files rsyslog should monitor. (optional). Below is an example
 of a hash used to describe a file to monitor.
 
-  ```
+  ```ruby
     {
         :filename => "/var/log/filename.log",
         :tag => "tag you want for this logfile",
-        :statefile => "unique-name-for-statefile"
+        :facility => "local1", # optionally specify syslog facility
+        :readmode => 0, # optional, 0 = default, 1 = paragraph (blank line between messages), 2 = indented (if a line starts with a space it is part of the previous message); see http://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html
+        :severity => "notice", # optionally specify syslog severity
+        :statefile => "unique-name-for-statefile" # optional if optional in your rsyslog version
     }
     ```
 
 * `node['loggly']['log_dirs']` - A list of directories to monitor (optional). The loggly configuration template will create an [imfile](http://www.rsyslog.com/doc/imfile.html) block for each file ending in '.log' in that directory. Each logdir in the list is of the format:
-    ```
+    ```ruby
     {
         :directory => "/var/log/directory",
         :tag => "tag for all files in this directory"

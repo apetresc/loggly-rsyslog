@@ -6,7 +6,18 @@ $ModLoad imfile
 	<% node['loggly']['log_files'].each do |logfile| %>
 $InputFileName <%= logfile['filename'] %>
 $InputFileTag <%= logfile['tag'] %>:
+<% if logfile['facility'] -%>
+$InputFileFacility <%= logfile['facility'] %>
+<% end -%>
+<% if logfile['readmode'] -%>
+$InputFileReadMode <%= logfile['readmode'] %>
+<% end -%>
+<% if logfile['severity'] -%>
+$InputFileSeverity <%= logfile['severity'] %>
+<% end -%>
+<% if logfile['statefile'] -%>
 $InputFileStateFile <%= logfile['statefile'] %>
+<% end -%>
 $InputRunFileMonitor
 	<% end %>
 
