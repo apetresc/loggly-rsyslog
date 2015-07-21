@@ -26,11 +26,11 @@ template node['loggly']['rsyslog']['conf'] do
   source 'rsyslog-loggly.conf.erb'
   owner 'root'
   group 'root'
-  mode 0644
+  mode '0644'
   variables({
     :monitor_files => !node['loggly']['log_files'].empty? || !node['loggly']['log_dirs'].empty?,
     :tags => node['loggly']['tags'].nil? || node['loggly']['tags'].empty? ? '' : "tag=\\\"#{node['loggly']['tags'].join("\\\" tag=\\\"")}\\\"",
     :token => loggly_token
   })
-  notifies :restart, "service[rsyslog]", :immediate
+  notifies :restart, "service[rsyslog]"
 end
