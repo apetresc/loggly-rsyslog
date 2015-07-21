@@ -12,25 +12,23 @@ if node['loggly']['token']['from_databag']
   databag_item = node['loggly']['token']['databag_item']
 
   loggly_token = Chef::EncryptedDataBagItem.load(databag, databag_item)['token']
-  raise "No token was found in databag item: #{databag}/#{databag_item}" if loggly_token.nil?
+  fail "No token was found in databag item: #{databag}/#{databag_item}" if loggly_token.nil?
 else
-  raise "When not using a Data Bag, you have to define the Loggly token manually" if node['loggly']['token']['value'].empty?
+  fail 'When not using a Data Bag, you have to define the Loggly token manually' if node['loggly']['token']['value'].empty?
   loggly_token = node['loggly']['token']['value']
 end
 
-include_recipe "rsyslog::default"
+include_recipe 'rsyslog::default'
 
-include_recipe "loggly-rsyslog::tls" if node['loggly']['tls']['enabled']
+include_recipe 'loggly-rsyslog::tls' if node['loggly']['tls']['enabled']
 
 template node['loggly']['rsyslog']['conf'] do
   source 'rsyslog-loggly.conf.erb'
   owner 'root'
   group 'root'
   mode '0644'
-  variables({
-    :monitor_files => !node['loggly']['log_files'].empty? || !node['loggly']['log_dirs'].empty?,
-    :tags => node['loggly']['tags'].nil? || node['loggly']['tags'].empty? ? '' : "tag=\\\"#{node['loggly']['tags'].join("\\\" tag=\\\"")}\\\"",
-    :token => loggly_token
-  })
-  notifies :restart, "service[rsyslog]"
+  variables(:monitor_files => !node['loggly']['log_files'].empty? || !node['loggly']['log_dirs'].empty?,
+            :tags => node['loggly']['tags'].nil? || node['loggly']['tags'].empty? ? '' : "tag=\\\"#{node['loggly']['tags'].join("\\\" tag=\\\"")}\\\"",
+            :token => loggly_token)
+  notifies :restart, 'service[rsyslog]'
 end

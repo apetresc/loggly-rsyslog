@@ -2,9 +2,9 @@ require 'bundler/setup'
 require 'rspec/core/rake_task'
 
 namespace :style do
-  #require 'rubocop/rake_task'
-  #desc 'Run Ruby style checks'
-  #Rubocop::RakeTask.new(:ruby)
+  # require 'rubocop/rake_task'
+  # desc 'Run Ruby style checks'
+  # Rubocop::RakeTask.new(:ruby)
 
   require 'foodcritic'
   desc 'Run Chef style checks'

@@ -7,4 +7,4 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "loggly-rsyslog::default"
+include_recipe 'loggly-rsyslog::default'

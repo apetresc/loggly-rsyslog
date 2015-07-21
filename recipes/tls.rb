@@ -3,7 +3,7 @@
 # Recipe:: tls
 #
 # Copyright (C) 2014 Matt Veitas
-# 
+#
 # All rights reserved - Do Not Redistribute
 #
 
@@ -41,12 +41,12 @@ remote_file 'download intermediate cert' do
   source node['loggly']['tls']['intermediate_cert_url']
   checksum node['loggly']['tls']['intermediate_cert_checksum']
 end
-  
+
 bash 'bundle certificate' do
   user 'root'
   cwd cert_path
   code <<-EOH
     cat {#{sf_bundle_path},#{loggly_crt_path}} > loggly_full.crt
   EOH
-  not_if { ::File.exists?("#{node['loggly']['tls']['cert_path']}/loggly_full.crt") }
+  not_if { ::File.exist?("#{node['loggly']['tls']['cert_path']}/loggly_full.crt") }
 end
