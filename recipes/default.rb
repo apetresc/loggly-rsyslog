@@ -32,5 +32,5 @@ template node['loggly']['rsyslog']['conf'] do
     :tags => node['loggly']['tags'].nil? || node['loggly']['tags'].empty? ? '' : "tag=\\\"#{node['loggly']['tags'].join("\\\" tag=\\\"")}\\\"",
     :token => loggly_token
   })
-  notifies :restart, "service[rsyslog]", :immediate
+  notifies :restart, "service[rsyslog]", :delayed
 end
