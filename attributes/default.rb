@@ -5,10 +5,8 @@ default['loggly']['log_dirs'] = []
 
 default['loggly']['tls']['enabled'] = true
 default['loggly']['tls']['cert_path'] = '/etc/rsyslog.d/keys/ca.d'
-default['loggly']['tls']['cert_url'] = 'https://logdog.loggly.com/media/loggly.com.crt'
-default['loggly']['tls']['cert_checksum'] = '20790d1a152b144bc7f4fc22f23efd582d923794acc03a5765d9df4b9c7f8e19'
-default['loggly']['tls']['intermediate_cert_url'] = 'https://certs.starfieldtech.com/repository/sf_bundle.crt'
-default['loggly']['tls']['intermediate_cert_checksum'] = '87d171b3333ca95a98aa02603fdb6508939c63f69e14c8587bd66c4f4df65032'
+default['loggly']['tls']['cert_url'] = 'https://logdog.loggly.com/media/logs-01.loggly.com_sha12.crt'
+default['loggly']['tls']['cert_checksum'] = '3bcd557ea8e43599d3fb98fd13857c2fbff5637cb307a3d4bae23e3c8b5c34cc'
 
 default['loggly']['token']['from_databag'] = true
 default['loggly']['token']['databag'] = 'loggly'
