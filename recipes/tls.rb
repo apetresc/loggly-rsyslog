@@ -29,6 +29,7 @@ remote_file 'download loggly.com cert' do
   path "#{cert_path}/#{cert_name}"
   source node['loggly']['tls']['cert_url']
   checksum node['loggly']['tls']['cert_checksum']
-  not_if { ::File.exists?("#{cert_path}/#{cert_name}") }
+
+  not_if { ::File.exists?("#{cert_path}/#{cert_name}") and not node[:loggly][:force_update] }
 end
 
